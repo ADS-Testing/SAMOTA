@@ -118,6 +118,7 @@ Note: Ignore `No such container:path: pylot:/home/erdos/workspace/results/finish
 
 ### TODO
 - Visualize the scenarios
+- Description about program structure
 
  ### Replicated and modified by
 - [Kyungwook Nam](https://github.com/nkwook)
