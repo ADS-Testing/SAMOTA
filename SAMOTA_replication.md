@@ -80,6 +80,12 @@ chmod +x run_simulator_without_t.sh
 chmod +x run_simulator_without_t_b.sh
 ```
 
+### Set Results/ directory
+```bash
+mkdir {PATH_OF_REPOSITORY}/SAMOTA/implementation/runner/Results
+```
+- According to [`run_single_scenario` function](/implementation/runner/runner.py), this will allow program to save the fitness scores.
+
 ## How to run 
 run the search algorithm using the following code
 ```bash
@@ -88,5 +94,30 @@ python3 run_{search_algorithm}.py
 ```
 Note: Ignore `No such container:path: pylot:/home/erdos/workspace/results/finished.txt`.
 
-log files will be generated in output folder
+- Minimun fitness score during the simulation will be saved in `/implementation/runner/output/temp` and trajectory information will be saved in `/implementation/runner/Results`.
 
+### For the details about the scenario inputs and fitness score, please refer to the [supporting matarial](/supporting-material/supporting_material.md).
+
+
+## Troubleshooting wiki links
+ [[SAMOTA] All of the fitness score values are displayed as 1000](https://github.com/ADS-Testing/Main/wiki/%5BSAMOTA%5D-All-of-the-fitness-score-values-are-displayed-as-1000)
+
+ ## Authors
+ ### Original source
+ ```text
+ @inproceedings{haq2022efficient,
+  title={Efficient online testing for DNN-enabled systems using surrogate-assisted and many-objective optimization},
+  author={Haq, Fitash Ul and Shin, Donghwan and Briand, Lionel},
+  booktitle={Proceedings of the 44th international conference on software engineering},
+  pages={811--822},
+  year={2022}
+}
+ ```
+
+ ### Replicated and modified by
+- [Kyungwook Nam](https://github.com/nkwook)
+- [Taehyun Ahn](https://dev.paxtaeo.com/en)
+- Advised by [Donghwan Shin](https://www.dshin.info/)
+
+## License
+[MIT License](/LICENSE.txt)
