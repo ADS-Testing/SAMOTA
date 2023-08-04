@@ -15,6 +15,7 @@ keras = "==2.4.0"
 tensorflow = "==2.2.0"
 numpy = "==1.21.5"
 hdbscan = "*"
+protobuf = "==3.20"
 
 [requires]
 python_version = "3.8"
