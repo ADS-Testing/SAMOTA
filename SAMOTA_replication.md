@@ -100,7 +100,9 @@ Note: Ignore `No such container:path: pylot:/home/erdos/workspace/results/finish
 
 
 ## Troubleshooting wiki links
- [[SAMOTA] All of the fitness score values are displayed as 1000](https://github.com/ADS-Testing/Main/wiki/%5BSAMOTA%5D-All-of-the-fitness-score-values-are-displayed-as-1000)
+ - [All of the fitness score values are displayed as 1000](https://github.com/ADS-Testing/Main/wiki/%5BSAMOTA%5D-All-of-the-fitness-score-values-are-displayed-as-1000)
+ - [Prediction module was not included in the git repository](https://github.com/ADS-Testing/Main/wiki/%5BSAMOTA%5D-Prediction-module-was-not-included-in-the-git-repository)
+
 
  ## Authors
  ### Original source
