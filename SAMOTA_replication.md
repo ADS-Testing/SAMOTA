@@ -7,8 +7,8 @@ Based on [original readme](/README.md)
 * 150+ GB Storage (SSD is recommended)
 
 ### Software
-* Ubuntu 18.04
-* python 3.6+
+* Ubuntu 20.04
+* python 3.8
 * nvidia-docker2 (see [pylot](https://github.com/erdos-project/pylot/tree/master/scripts) for more details)
 * docker
 
@@ -115,6 +115,9 @@ Note: Ignore `No such container:path: pylot:/home/erdos/workspace/results/finish
   year={2022}
 }
  ```
+
+### TODO
+- Visualize the scenarios
 
  ### Replicated and modified by
 - [Kyungwook Nam](https://github.com/nkwook)
