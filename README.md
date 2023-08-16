@@ -1,80 +1,55 @@
-# Replication Package for "Efficient Online Testing for DNN-Enabled Systems using Surrogate-Assisted and Many-Objective Optimization"
-
-This repository contains the replication package of the paper "Efficient Online Testing for DNN-based Systems using Surrogate-Assisted and Many-Objective Optimization", ICSE 2022.
-
-(NOTE: this markdown file is made using [atom](https://atom.io); if you do not have a proper markdown viewer, you can use [this online viewer](https://dillinger.io))
-
-
+# SAMOTA replication docs
+Based on [original readme](/README.md)
 ## Requirements
-
 ### Hardware
 * NVIDIA GPU (>= 1080, RTX 2070+ is recommended)
 * 16+ GB Memory
 * 150+ GB Storage (SSD is recommended)
 
 ### Software
-* Ubuntu 18.04
-* python 3.6+
+* Ubuntu 20.04
+* python 3.8
 * nvidia-docker2 (see [pylot](https://github.com/erdos-project/pylot/tree/master/scripts) for more details)
 * docker
-
-### Python libararies
-* pandas==1.1.5
-* pymoo==0.4.2.2
-* scikit-learn==0.24.2
-* h5py==2.10.0
-* scipy==1.4.1
-* keras==2.4.0
-* tensorflow==2.2.0
-* numpy==1.21.5
-* hdbscan==0.8.25
-
-#### How to Install Python Libraries
-Initialize python's virtual environment and install the required packages:
-```shell script
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-```
-
 
 ## Directory Structure
 - `implementation`: source code of search algorithms (SAMOTA and its alternatives), Pylot and automated evaluation scripts
 - `data-analysis`: scripts to automatically process evaluation results data to generate figures
 - `supporting-material`: supporting materials for safety requirements, constraints and possible values of test input attributes
 
-
-## Installation
-
-1. setup docker (Pylot) using the scripts from original website (https://github.com/erdos-project/pylot) or following the commands below
+## Setup
+### Install Python Libraries
+Initialize pipenv and install the required packages:
+```shell script
+pipenv install
+```
+### Setup docker Pylot
+Use the scripts from original website (https://github.com/erdos-project/pylot) or following the commands below
 
 ```bash
 docker pull erdosproject/pylot:v0.3.2
 nvidia-docker run -itd --name pylot -p 20022:22 erdosproject/pylot:v0.3.2 /bin/bash
 ```
-2. create ssh-keys using following command and press enter twice when prompted
+Create ssh-keys using following command and press enter twice when prompted
 ```bash
 ssh-keygen
 ```
 
-3. setup keys with Pylot by using the following commands
+Setup keys with Pylot by using the following commands
 ```bash
 nvidia-docker cp ~/.ssh/id_rsa.pub pylot:/home/erdos/.ssh/authorized_keys
 nvidia-docker exec -i -t pylot sudo chown erdos /home/erdos/.ssh/authorized_keys
 nvidia-docker exec -i -t pylot sudo service ssh start
 ```
-4. *download* the simulators from the following links and *extract* them to a folder name `Carla_Versions` (due to the figshare upload limit, the compressed file is divided into three)
-* [Link_1](https://doi.org/10.6084/m9.figshare.16443321)
-* [Link_2](https://doi.org/10.6084/m9.figshare.16443228)
-* [Link_3](https://doi.org/10.6084/m9.figshare.16442883)
+### Setup CARLA
+*Download* the simulators from the following command and *extract* them to a folder name `Carla_Versions` (due to the figshare upload limit, the compressed file is divided into three)
 
-Note: if you are unable to execute these CARLA binaries on your machine, please follow the instructions [here](https://carla.readthedocs.io/en/0.9.10/build_linux/) to build CARLA on your local machine and edit it. You can create your own CARLA binaries by running the following command
 ```bash
-make launch
+./setup_carla.sh
 ```
-The binaries for carla will appear in the build folder.
 
-5. Run the following commands to setup Pylot with our changes
+### Integrate CARLA and Pylot
+Run the following commands to setup Pylot with our changes
 ```bash
 docker cp Carla_Versions pylot:/home/erdos/workspace/
 ssh -p 20022 -X erdos@localhost
@@ -84,7 +59,6 @@ cd pylot
 rm -d -rf pylot
 rm -d -rf scripts
 ```
-
 ```bash
 logout
 docker cp implementation/pylot pylot:/home/erdos/workspace/pylot/
@@ -100,7 +74,13 @@ chmod +x run_simulator_without_t.sh
 chmod +x run_simulator_without_t_b.sh
 ```
 
-## Usage
+### Set Results/ directory
+```bash
+mkdir {PATH_OF_REPOSITORY}/SAMOTA/implementation/runner/Results
+```
+- According to [`run_single_scenario` function](/implementation/runner/runner.py), this will allow program to save the fitness scores.
+
+## How to run 
 run the search algorithm using the following code
 ```bash
 cd implementation/runner
@@ -108,5 +88,36 @@ python3 run_{search_algorithm}.py
 ```
 Note: Ignore `No such container:path: pylot:/home/erdos/workspace/results/finished.txt`.
 
+- Minimun fitness score during the simulation will be saved in `/implementation/runner/output/temp` and trajectory information will be saved in `/implementation/runner/Results`.
 
-log files will be generated in output folder
+### For the details about the scenario inputs and fitness score, please refer to the [supporting matarial](/supporting-material/supporting_material.md).
+
+
+## Troubleshooting wiki links
+ - [All of the fitness score values are displayed as 1000](https://github.com/ADS-Testing/Main/wiki/%5BSAMOTA%5D-All-of-the-fitness-score-values-are-displayed-as-1000)
+ - [Prediction module was not included in the git repository](https://github.com/ADS-Testing/Main/wiki/%5BSAMOTA%5D-Prediction-module-was-not-included-in-the-git-repository)
+
+
+ ## Authors
+ ### Original source
+ ```text
+ @inproceedings{haq2022efficient,
+  title={Efficient online testing for DNN-enabled systems using surrogate-assisted and many-objective optimization},
+  author={Haq, Fitash Ul and Shin, Donghwan and Briand, Lionel},
+  booktitle={Proceedings of the 44th international conference on software engineering},
+  pages={811--822},
+  year={2022}
+}
+ ```
+
+### TODO
+- Visualize the scenarios
+- Description about program structure
+
+ ### Replicated and modified by
+- [Kyungwook Nam](https://github.com/nkwook)
+- [Taehyun Ahn](https://dev.paxtaeo.com/en)
+- Advised by [Donghwan Shin](https://www.dshin.info/)
+
+## License
+[MIT License](/LICENSE.txt)
