@@ -1,5 +1,9 @@
-# SAMOTA replication docs
-Based on [original readme](/README.md)
+# Replication of "SAMOTA"
+
+Modified version of the [original replication package](https://doi.org/10.6084/m9.figshare.16468530) to support the followings:
+- Ubuntu 20.04 LTS
+
+
 ## Requirements
 ### Hardware
 * NVIDIA GPU (>= 1080, RTX 2070+ is recommended)
@@ -7,7 +11,7 @@ Based on [original readme](/README.md)
 * 150+ GB Storage (SSD is recommended)
 
 ### Software
-* Ubuntu 20.04
+* Ubuntu 20.04 LTS
 * python 3.8
 * nvidia-docker2 (see [pylot](https://github.com/erdos-project/pylot/tree/master/scripts) for more details)
 * docker
