@@ -26,24 +26,26 @@ Initialize pipenv and install the required packages:
 ```shell script
 pipenv install
 ```
-### Setup docker Pylot
+### Setup Pylot (docker container)
 Use the scripts from original website (https://github.com/erdos-project/pylot) or following the commands below
 
 ```bash
 docker pull erdosproject/pylot:v0.3.2
 nvidia-docker run -itd --name pylot -p 20022:22 erdosproject/pylot:v0.3.2 /bin/bash
 ```
+
 Create ssh-keys using following command and press enter twice when prompted
 ```bash
 ssh-keygen
 ```
 
-Setup keys with Pylot by using the following commands
+Setup ssh using the keys
 ```bash
 nvidia-docker cp ~/.ssh/id_rsa.pub pylot:/home/erdos/.ssh/authorized_keys
 nvidia-docker exec -i -t pylot sudo chown erdos /home/erdos/.ssh/authorized_keys
 nvidia-docker exec -i -t pylot sudo service ssh start
 ```
+
 ### Setup CARLA
 *Download* the simulators from the following command and *extract* them to a folder name `Carla_Versions` (due to the figshare upload limit, the compressed file is divided into three)
 
