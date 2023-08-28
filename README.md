@@ -69,8 +69,7 @@ ssh -p 20022 -X erdos@localhost
 cd /home/erdos/workspace
 mkdir results
 cd pylot
-rm -d -rf pylot
-rm -d -rf scripts
+rm -rf pylot scripts
 logout
 
 # outside the container
