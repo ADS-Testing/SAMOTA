@@ -54,21 +54,30 @@ nvidia-docker exec -i -t pylot sudo service ssh start
 ```
 
 ### Integrate CARLA and Pylot
-Run the following commands to setup Pylot with our changes
+
+Move the customised CARLA into the Pylot container
 ```bash
 docker cp Carla_Versions pylot:/home/erdos/workspace/
+rm -rf Carla_Versions
+```
+
+Move customised pylot scripts into the Pylot container
+```bash
 ssh -p 20022 -X erdos@localhost
+
+# inside the container
 cd /home/erdos/workspace
 mkdir results
 cd pylot
 rm -d -rf pylot
 rm -d -rf scripts
-```
-```bash
 logout
+
+# outside the container
 docker cp implementation/pylot pylot:/home/erdos/workspace/pylot/
 docker cp implementation/scripts pylot:/home/erdos/workspace/pylot/
 ```
+
 Note: in case error while running the simulator, log in to docker and change the permissions of scripts by using following commands
 ```bash
 ssh -p 20022 -X erdos@localhost
