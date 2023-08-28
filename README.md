@@ -92,8 +92,19 @@ python3 run_{search_algorithm}.py
 Note: Ignore `No such container:path: pylot:/home/erdos/workspace/results/finished.txt`.
 
 - Minimun fitness score during the simulation will be saved in `/implementation/runner/output/temp` and trajectory information will be saved in `/implementation/runner/Results`.
+- For the details about the scenario inputs and fitness score, please refer to the [supporting matarial](/supporting-material/supporting_material.md).
 
-### For the details about the scenario inputs and fitness score, please refer to the [supporting matarial](/supporting-material/supporting_material.md).
+### (Tip) How to start/stop docker an existing container
+
+If the `pylot` container is not properly stopped during the execution of search algorithms due to unexpected errors (or keyboard inturruptions), you can use the following docker commands to start|stop the existing container: 
+```bash
+nvidia-docker start|stop pylot
+```
+
+If needed, you can check the status of the container(s):
+```bash
+nvidia-docker ps --all
+```
 
 
 ## Troubleshooting wiki links
