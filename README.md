@@ -6,15 +6,14 @@ Modified version of the [original replication package](https://doi.org/10.6084/m
 
 ## Requirements
 ### Hardware
-* NVIDIA GPU (>= 1080, RTX 2070+ is recommended)
+* NVIDIA GPU (>= 1080, RTX 2070+ is recommended) (with [nvidia-driver installed](https://help.ubuntu.com/community/NvidiaDriversInstallation))
 * 16+ GB Memory
 * 150+ GB Storage (SSD is recommended)
 
 ### Software
 * Ubuntu 20.04 LTS
 * python 3.8
-* nvidia-docker2 (see [pylot](https://github.com/erdos-project/pylot/tree/master/scripts) for more details)
-* docker
+* nvidia-docker2 (see [pylot's script](https://github.com/erdos-project/pylot/blob/master/scripts/install-nvidia-docker.sh) for more details)
 
 ## Directory Structure
 - `implementation`: source code of search algorithms (SAMOTA and its alternatives), Pylot and automated evaluation scripts
