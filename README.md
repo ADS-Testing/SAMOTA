@@ -1,4 +1,4 @@
-# Replication of "SAMOTA"
+# Replication of "(ICSE 22) Efficient Online Testing for DNN-based Systems using Surrogate-Assisted and Many-Objective Optimization"
 
 Modified version of the [original replication package](https://doi.org/10.6084/m9.figshare.16468530) to support the followings:
 - Ubuntu 20.04 LTS
