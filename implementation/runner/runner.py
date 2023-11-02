@@ -223,13 +223,10 @@ def run_single_scenario(fv_arg):
         counter = counter + 1
         time.sleep(1)
 
-        if counter > cfg.time_allowed:
-            print(f"Running out of single simulation budget! counter: {counter}, cfg.time_allowed: {cfg.time_allowed}")
-            stop_pylot_container()
-            return 1000, 1000, 1000, 1000, 1000, 1000
-
-        elif scenario_finished():
-            print("Scenario simulation successfully finished!")
+        if counter > cfg.time_allowed or scenario_finished():
+            print(f"counter: {counter}, "
+                  f"cfg.time_allowed: {cfg.time_allowed}, "
+                  f"scenario_finished(): {scenario_finished()}")
             stop_pylot_container()
             copy_to_host(fv)
             file_name = 'Results/' + str(fv)
@@ -238,6 +235,9 @@ def run_single_scenario(fv_arg):
                 print("\n\n\n\n\n\n\n\n\n" + str(DfC_min) + "," + str(DfV_max) + "," + str(DfP_max) + "," + str(
                     DfM_max) + "," + str(DT_max) + "," + str(traffic_lights_max))
                 return DfC_min, DfV_max, DfP_max, DfM_max, DT_max, traffic_lights_max
+            else:
+                print(f'File not found: {file_name}')
+                return 1000, 1000, 1000, 1000, 1000, 1000
 
         else:
             print(".", end="", flush=True)

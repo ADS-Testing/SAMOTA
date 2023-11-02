@@ -1,5 +1,5 @@
 base_file_name = "base_file_case_2.conf"
-time_allowed = 2000
+time_allowed = 660
 base_directory= ""
 all_data= "sample.log"
 clean_data= "lib/clean_data.csv"

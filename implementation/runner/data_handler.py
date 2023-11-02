@@ -67,8 +67,6 @@ def get_values(fv):
         if normalised_distance_travelled > DT_max:
             DT_max = normalised_distance_travelled
 
-
-
-
+    print(f'DfC_min: {DfC_min}, DfV_min: {DfV_min}, DfP_min: {DfP_min}, DfM_min: {DfM_min}, DT_max: {DT_max}, traffic_lights_max: {traffic_lights_max}')
     return  DfC_min, DfV_min, DfP_min, DfM_min, DT_max, traffic_lights_max
 
