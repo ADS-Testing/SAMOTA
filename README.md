@@ -8,7 +8,7 @@ Modified version of the [original replication package](https://doi.org/10.6084/m
 ### Hardware
 * NVIDIA GPU (>= 1080, RTX 2070+ is recommended) (with [nvidia-driver installed](https://help.ubuntu.com/community/NvidiaDriversInstallation))
 * 16+ GB Memory
-* 150+ GB Storage (SSD is recommended)
+* 250+ GB Storage (SSD is recommended)
 
 ### Software
 * Ubuntu 20.04 LTS
@@ -49,7 +49,7 @@ If docker gives you a permission error, follow below (otherwise skip):
 ```bash
 sudo groupadd docker
 sudo usermod -aG docker $USER
-reboot
+reboot  # TODO: update this command to restart docker-daemon instead of reboot
 ```
 
 Download the pylot docker image:
