@@ -35,6 +35,13 @@ pip install -r requirements.txt
 pipenv install
 ```
 
+(Option 3: conda) Initialise a conda environment and install the required packages (Useful if multiple python versions are locally installed):
+```shell script
+conda create -n samota python=3.8
+conda activate samota
+pip install -r requirements.txt
+```
+
 ### Download & Setup Pylot (docker; 30-50 mins)
 (Recommandation: Run the next step, i.e., Download CARLA, whlie you are doing the pylot setup below because downloading CALRA is time-consuming)
 
@@ -49,7 +56,8 @@ If docker gives you a permission error, follow below (otherwise skip):
 ```bash
 sudo groupadd docker
 sudo usermod -aG docker $USER
-reboot  # TODO: update this command to restart docker-daemon instead of reboot
+sudo systemctl daemon-reload
+sudo systemctl restart docker
 ```
 
 Download the pylot docker image:
@@ -115,6 +123,7 @@ chmod +x run_simulator_without_t_b.sh
 ### Create an empty directory for saving results
 ```bash
 mkdir {PATH_TO_THIS_REPO}/SAMOTA/implementation/runner/Results
+mkdir {PATH_TO_THIS_REPO}/SAMOTA/implementation/runner/output
 mkdir {PATH_TO_THIS_REPO}/SAMOTA/implementation/runner/output/temp
 ```
 - According to [`run_single_scenario` function](/implementation/runner/runner.py), this will allow program to save the fitness scores.
