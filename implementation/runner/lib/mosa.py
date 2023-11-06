@@ -5,7 +5,7 @@ import time
 import multiprocessing
 import time
 import numpy as np
-from pymoo.algorithms.nsga2 import calc_crowding_distance
+from pymoo.algorithms.moo.nsga2 import calc_crowding_distance
 from candidate import Candidate
 from utils import *
 
