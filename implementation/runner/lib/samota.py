@@ -6,10 +6,10 @@ import numpy as np
 from RBF import Model as RBF_Model
 from candidate import Candidate
 from ensemble import ensemble
-from pymoo.algorithms.moo.nsga2 import calc_crowding_distance
-from pymoo.algorithms.base.genetic import GeneticAlgorithm as GA
+from pymoo.algorithms.nsga2 import calc_crowding_distance
+from pymoo.algorithms.so_genetic_algorithm import GA
 from pymoo.factory import get_crossover, get_mutation, get_sampling
-from pymoo.core.problem import Problem
+from pymoo.model.problem import Problem
 from pymoo.optimize import minimize as min_GA
 from utils import *
 
