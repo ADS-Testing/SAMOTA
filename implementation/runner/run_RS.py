@@ -53,7 +53,7 @@ def run(i,archive):
     # 15 task
     threshold_criteria = [0,0,0,0,0.95,0]
 
-    time_budget = 7200  # second
+    time_budget = 600  # second
     no_of_Objectives = 6;
 
 
