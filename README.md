@@ -56,8 +56,7 @@ If docker gives you a permission error, follow below (otherwise skip):
 ```bash
 sudo groupadd docker
 sudo usermod -aG docker $USER
-sudo systemctl daemon-reload
-sudo systemctl restart docker
+newgrp docker
 ```
 
 Download the pylot docker image:
