@@ -185,7 +185,7 @@ def handle_config_file(fv):
 def scenario_finished():
     cmd = [cfg.base_directory+'./pylot_finish_file_copier.sh']
     run_command_without_printing(cmd, ignore_err_msgs=True)
-    if path.exists(cfg.base_directory + "finished.txt"):
+    if path.exists("./finished.txt"):
         return True
     else:
         return False
