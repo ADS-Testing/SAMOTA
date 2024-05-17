@@ -8,7 +8,7 @@ Modified version of the [original replication package](https://doi.org/10.6084/m
 ### Hardware
 * NVIDIA GPU (>= 1080, RTX 2070+ is recommended) (with [nvidia-driver installed](https://help.ubuntu.com/community/NvidiaDriversInstallation))
 * 16+ GB Memory
-* 150+ GB Storage (SSD is recommended)
+* 250+ GB Storage (SSD is recommended)
 
 ### Software
 * Ubuntu 20.04 LTS
@@ -22,12 +22,44 @@ Modified version of the [original replication package](https://doi.org/10.6084/m
 
 ## Setup
 ### Install Python Libraries
-Initialize pipenv and install the required packages:
+
+(Option 1: venv) Initialise venv and install the required packages:
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+(Option 2: pipenv) Initialise pipenv and install the required packages:
 ```shell script
 pipenv install
 ```
-### Setup Pylot (docker container)
-Use the scripts from original website (https://github.com/erdos-project/pylot) or following the commands below
+
+(Option 3: conda) Initialise a conda environment and install the required packages (Useful if multiple python versions are locally installed):
+```shell script
+conda create -n samota python=3.8
+conda activate samota
+pip install -r requirements.txt
+```
+
+### Download & Setup Pylot (docker; 30-50 mins)
+(Recommandation: Run the next step, i.e., Download CARLA, whlie you are doing the pylot setup below because downloading CALRA is time-consuming)
+
+Check the docker:
+```bash
+docker images
+```
+
+If there is no docker, use the [script from Pylot](https://github.com/erdos-project/pylot/blob/master/scripts/install-nvidia-docker.sh) to install it.
+
+If docker gives you a permission error, follow below (otherwise skip):
+```bash
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+Download the pylot docker image:
 
 ```bash
 docker pull erdosproject/pylot:v0.3.2
@@ -46,7 +78,7 @@ nvidia-docker exec -i -t pylot sudo chown erdos /home/erdos/.ssh/authorized_keys
 nvidia-docker exec -i -t pylot sudo service ssh start
 ```
 
-### Setup CARLA
+### Download CARLA (20-40 mins)
 *Download* the simulators from the following command and *extract* them to a folder name `Carla_Versions` (due to the figshare upload limit, the compressed file is divided into three)
 
 ```bash
@@ -58,16 +90,16 @@ nvidia-docker exec -i -t pylot sudo service ssh start
 Move the customised CARLA into the Pylot container
 ```bash
 docker cp Carla_Versions pylot:/home/erdos/workspace/
-rm -rf Carla_Versions
+rm -rf Carla_Versions # optional, to save some storage space
 ```
 
 Move customised pylot scripts into the Pylot container
 ```bash
-ssh -p 20022 -X erdos@localhost
+ssh -p 20022 -X erdos@localhost  # answer 'yes'
 
-# inside the container
+# now you should be inside the container
 cd /home/erdos/workspace
-mkdir results
+mkdir results  # check, Results?
 cd pylot
 rm -rf pylot scripts
 logout
@@ -87,9 +119,11 @@ chmod +x run_simulator_without_t.sh
 chmod +x run_simulator_without_t_b.sh
 ```
 
-### Set Results/ directory
+### Create an empty directory for saving results
 ```bash
-mkdir {PATH_OF_REPOSITORY}/SAMOTA/implementation/runner/Results
+mkdir {PATH_TO_THIS_REPO}/SAMOTA/implementation/runner/Results
+mkdir {PATH_TO_THIS_REPO}/SAMOTA/implementation/runner/output
+mkdir {PATH_TO_THIS_REPO}/SAMOTA/implementation/runner/output/temp
 ```
 - According to [`run_single_scenario` function](/implementation/runner/runner.py), this will allow program to save the fitness scores.
 

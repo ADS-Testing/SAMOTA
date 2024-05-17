@@ -38,7 +38,7 @@ This file contains the supporting material including requirements, constraints, 
 | vehicle target speed | {20,30,40} | Speed in km/h |
 | presence of trees | {T,F}  | True or False |
 | presence of buildings | {T,F}  | True or False |
-| driving task  | {follow_road, take 1st exit, take 2nd exit, take 3rd exit} | Tasks that ego vehicle should perform |
+| driving task  | {follow_road, take 1st exit, take 2nd exit} | Tasks that ego vehicle should perform |
 
 
 ## Constraints in Scenario Generation

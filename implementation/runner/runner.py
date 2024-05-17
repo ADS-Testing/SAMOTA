@@ -24,8 +24,13 @@ def run_command(cmd):
         return return_code
 
 
-def run_command_without_printing(cmd):
-    process = subprocess.Popen(cmd,universal_newlines=True)
+def run_command_without_printing(cmd, ignore_err_msgs=False):
+    if ignore_err_msgs:
+        process = subprocess.Popen(cmd, universal_newlines=True,
+                                   stderr=subprocess.DEVNULL,
+                                   stdout=subprocess.DEVNULL)
+    else:
+        process = subprocess.Popen(cmd, universal_newlines=True)
     return_code = process.poll()
 
 
@@ -179,10 +184,11 @@ def handle_config_file(fv):
 
 def scenario_finished():
     cmd = [cfg.base_directory+'./pylot_finish_file_copier.sh']
-    run_command_without_printing(cmd)
-    if path.exists(cfg.base_directory + "finished.txt"):
+    run_command_without_printing(cmd, ignore_err_msgs=True)
+    if path.exists("./finished.txt"):
         return True
-    return False;
+    else:
+        return False
 
 
 def copy_to_host(fv):
@@ -200,26 +206,44 @@ def run_single_scenario(fv_arg):
         fv[12] = fv[12]*10
     if fv [0] != 3:
         fv[15]=0
+
+    # DEBUG ONLY ------------------------------------------
+    fv = [2, 0, 0, 0, 0, 0, 0, 1, 0, 0, 4, 1, 2, 1, 0, 0]
+    print(f'DEBUG MODE: the scenario is fixed as fv={fv}')
+    # -----------------------------------------------------
+
     handle_container(fv)
     handle_config_file(fv)
     handle_pylot()
+
     counter = 0
-    while (True):
+    print(f"Single simulation budget (cfg.time_allowed) = {cfg.time_allowed}")
+    print("Waiting for scenario to finish")
+    while True:
         counter = counter + 1
         time.sleep(1)
-        if (counter > cfg.time_allowed or scenario_finished()):
+
+        if counter > cfg.time_allowed or scenario_finished():
+            print(f"counter: {counter}, "
+                  f"cfg.time_allowed: {cfg.time_allowed}, "
+                  f"scenario_finished(): {scenario_finished()}")
             stop_pylot_container()
-            break;
+            copy_to_host(fv)
+            file_name = 'Results/' + str(fv)
+            if os.path.exists(file_name):
+                DfC_min, DfV_max, DfP_max, DfM_max, DT_max, traffic_lights_max = get_values(fv)
+                print("\n\n\n\n\n\n\n\n\n" + str(DfC_min) + "," + str(DfV_max) + "," + str(DfP_max) + "," + str(
+                    DfM_max) + "," + str(DT_max) + "," + str(traffic_lights_max))
+                return DfC_min, DfV_max, DfP_max, DfM_max, DT_max, traffic_lights_max
+            else:
+                print(f'File not found: {file_name}')
+                return 1000, 1000, 1000, 1000, 1000, 1000
+
         else:
-            print("Waiting for scenario to finish")
-    copy_to_host(fv)
-    file_name = 'Results/' + str(fv)
-    if os.path.exists(file_name):
-        DfC_min, DfV_max, DfP_max, DfM_max, DT_max, traffic_lights_max = get_values(fv)
-        print("\n\n\n\n\n\n\n\n\n"+str(DfC_min) + "," + str(DfV_max) + "," + str(DfP_max) + "," + str(DfM_max) + "," + str(DT_max) + "," + str(traffic_lights_max))
-        return DfC_min, DfV_max, DfP_max, DfM_max, DT_max, traffic_lights_max
-    else:
-        return 1000,1000,1000,1000,1000,1000
+            print(".", end="", flush=True)
+            if counter % 100 == 0:
+                print('\n')
+
 def run(fv):
     #     0  1  2  3  4  5  6  7  8  9  10 11 12  13 14
 
